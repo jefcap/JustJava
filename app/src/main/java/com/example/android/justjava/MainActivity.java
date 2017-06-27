@@ -2,10 +2,11 @@ package com.example.android.justjava;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
-
-import java.text.NumberFormat;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     int quantity = 2;
@@ -20,9 +21,15 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
+        //Get checkbox state
+        Boolean hasWhippedCream = ((CheckBox) findViewById(R.id.whipped_cream_checkbox)).isChecked();
+//        Log.i("MainActivity.java", "Has whipped cream: "+ hasWhippedCream);
+
         int price = calculatePrice();
         //String priceMessage = "Total: $" + price + "\n Thank you!";
-        displayMessage(createOrderSummary(price));
+        displayMessage(createOrderSummary(price,hasWhippedCream));
+        Toast.makeText(this, "Submitted", Toast.LENGTH_SHORT).show();
+
     }
 
     /**
@@ -38,8 +45,12 @@ public class MainActivity extends AppCompatActivity {
      * Generate order summary
      *
      */
-    private String createOrderSummary(int price) {
-        String priceMessage = "Name: Jefferson Capovilla\n" + "Quantity: " + quantity + "\nTotal: $" + price + "\nThank you!";
+    private String createOrderSummary(int price, boolean whippedCream) {
+        String priceMessage = "Name: Jefferson Capovilla";
+        priceMessage += "\nAdd whipped cream? " + whippedCream;
+        priceMessage += "\nQuantity: " + quantity;
+        priceMessage += "\nTotal: $" + price;
+        priceMessage += "\nThank you!";
         return priceMessage;
     }
 
@@ -47,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
      * This method displays the given text on the screen.
      */
     private void displayMessage(String message) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(message);
+        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
+        orderSummaryTextView.setText(message);
     }
 
     /**
@@ -76,11 +87,4 @@ public class MainActivity extends AppCompatActivity {
         quantityTextView.setText("" + number);
     }
 
-    /**
-     * This method displays the given price on the screen.
-     */
-    private void displayPrice(int number) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
-    }
 }
