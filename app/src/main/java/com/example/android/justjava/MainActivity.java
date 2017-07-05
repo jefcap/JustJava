@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         int price = calculatePrice();
         //String priceMessage = "Total: $" + price + "\n Thank you!";
-        displayMessage(createOrderSummary(price,hasWhippedCream, hasChocolate));
+        displayMessage(createOrderSummary(price,hasWhippedCream, hasChocolate, customerName));
         Toast.makeText(this, "Submitted", Toast.LENGTH_SHORT).show();
 
     }
@@ -52,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
      * Generate order summary
      *
      */
-    private String createOrderSummary(int price, boolean hasWhippedCream, boolean hasChocolate) {
-        String priceMessage = "Name: Jefferson Capovilla";
+    private String createOrderSummary(int price, boolean hasWhippedCream, boolean hasChocolate, String customerName) {
+        String priceMessage = "Name: " + customerName;
         priceMessage += "\nAdd whipped cream? " + hasWhippedCream;
         priceMessage += "\nAdd chocolate? " + hasChocolate;
         priceMessage += "\nQuantity: " + quantity;
