@@ -1,5 +1,7 @@
 package com.example.android.justjava;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,10 +34,28 @@ public class MainActivity extends AppCompatActivity {
         Boolean hasChocolate = ((CheckBox) findViewById(R.id.chocolate_checkbox)).isChecked();
 //        Log.i("MainActivity.java", "Has whipped cream: "+ hasWhippedCream);
 
-        int price = calculatePrice();
+        int price = calculatePrice(hasWhippedCream, hasChocolate);
         //String priceMessage = "Total: $" + price + "\n Thank you!";
-        displayMessage(createOrderSummary(price,hasWhippedCream, hasChocolate, customerName));
-        Toast.makeText(this, "Submitted", Toast.LENGTH_SHORT).show();
+        //displayMessage(createOrderSummary(price,hasWhippedCream, hasChocolate, customerName));
+        //Toast.makeText(this, "Submitted", Toast.LENGTH_SHORT).show();
+        String orderSummary = createOrderSummary(price,hasWhippedCream, hasChocolate, customerName);
+
+        //Test with intent to use with google maps
+//        Intent intent = new Intent(Intent.ACTION_VIEW);
+//        Uri geoLocation = Uri.parse("geo:47.6, -122.3");
+//        intent.setData(geoLocation);
+//        if (intent.resolveActivity(getPackageManager()) != null) {
+//            startActivity(intent);
+//        }
+
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+//        intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+        intent.putExtra(Intent.EXTRA_SUBJECT, customerName);
+        intent.putExtra(Intent.EXTRA_TEXT, orderSummary);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
 
     }
 
@@ -43,8 +63,17 @@ public class MainActivity extends AppCompatActivity {
      * Calculates the price of the order.
      *
      */
-    private int calculatePrice() {
-        int price = quantity * 5;
+    private int calculatePrice(Boolean hasWhippedCream, Boolean hasChocolate) {
+        int unityPrice = 5;
+
+        if (hasWhippedCream) {
+            unityPrice += 1;
+        }
+        if (hasChocolate) {
+            unityPrice += 2;
+        }
+        int price = quantity * unityPrice;
+
         return price;
     }
 
@@ -58,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         priceMessage += "\nAdd chocolate? " + hasChocolate;
         priceMessage += "\nQuantity: " + quantity;
         priceMessage += "\nTotal: $" + price;
-        priceMessage += "\nThank you!";
+        priceMessage += "\n" + getString(R.string.thank_you);
         return priceMessage;
     }
 
@@ -74,6 +103,10 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the + button is clicked.
      */
     public void increment(View view) {
+        if (quantity == 100){
+            Toast.makeText(this, "You cannot have more than 100 coffees", Toast.LENGTH_SHORT).show();
+            return;
+        }
         quantity++;
         displayQuantity(quantity);
     }
@@ -82,6 +115,10 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the - button is clicked.
      */
     public void decrement(View view) {
+        if (quantity == 1){
+            Toast.makeText(this, "You cannot have less than 1 coffees", Toast.LENGTH_SHORT).show();
+            return;
+        }
         quantity--;
         displayQuantity(quantity);
     }
