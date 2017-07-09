@@ -1,6 +1,7 @@
 package com.example.android.justjava;
 
 import android.content.Intent;
+import android.icu.text.NumberFormat;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 //            startActivity(intent);
 //        }
 
+        //Forward text to e-mail via intent
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:")); // only email apps should handle this
 //        intent.putExtra(Intent.EXTRA_EMAIL, addresses);
@@ -82,11 +84,11 @@ public class MainActivity extends AppCompatActivity {
      *
      */
     private String createOrderSummary(int price, boolean hasWhippedCream, boolean hasChocolate, String customerName) {
-        String priceMessage = "Name: " + customerName;
-        priceMessage += "\nAdd whipped cream? " + hasWhippedCream;
-        priceMessage += "\nAdd chocolate? " + hasChocolate;
-        priceMessage += "\nQuantity: " + quantity;
-        priceMessage += "\nTotal: $" + price;
+        String priceMessage = getString(R.string.order_summary_name,customerName);
+        priceMessage += "\n" + getString(R.string.whipped_cream) + hasWhippedCream;
+        priceMessage += "\n" + getString(R.string.add_chocolate) + hasChocolate;
+        priceMessage += "\n" +  getString(R.string.quantity) + quantity;
+        priceMessage += "\n" + getString(R.string.total) + NumberFormat.getCurrencyInstance().format(price);
         priceMessage += "\n" + getString(R.string.thank_you);
         return priceMessage;
     }
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void increment(View view) {
         if (quantity == 100){
-            Toast.makeText(this, "You cannot have more than 100 coffees", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.max_coffees), Toast.LENGTH_SHORT).show();
             return;
         }
         quantity++;
@@ -116,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void decrement(View view) {
         if (quantity == 1){
-            Toast.makeText(this, "You cannot have less than 1 coffees", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.min_coffee), Toast.LENGTH_SHORT).show();
             return;
         }
         quantity--;

@@ -1,5 +1,26 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Just Java</string>
+
+    <!-- Header text for the list of toppings [CHAR LIMIT=20] -->
     <string name="toppings">Toppings</string>
+
+    <!-- Thank you message for the order summary [CHAR LIMIT=NONE] -->
     <string name="thank_you">Thank you!</string>
+
+    <!-- Name for the order summary. It will be shown in the format of "Name: Amy" where Amy is the
+      user's name[CHAR LIMIT=NONE] -->
+    <string name="order_summary_name">Name: <xliff:g id="name" example="Amy">%s</xliff:g></string>
+    <string name="whipped_cream">Add whipped cream?</string>
+    <string name="add_chocolate">Add chocolate?</string>
+    <string name="quantity">Quantity:</string>
+    <string name="total">Total: </string>
+    <string name="max_coffees">You cannot have more than 100 coffees</string>
+    <string name="min_coffee">You cannot have less than 1 coffees</string>
+    <string name="whipped_cream_xml">Whipped cream</string>
+    <string name="chocolate">Chocolate</string>
+    <string name="quantity_xml">Quantity</string>
+    <string name="order_summary">Order Summary</string>
+    <string name="order">Order</string>
+    <string name="name">Name</string>
+
 </resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cafezinho</string>
+    <string name="thank_you">Obrigado!</string>
+    <string name="toppings">Coberturas</string>
+    <string name="add_chocolate">Adicionar chocolate?</string>
+    <string name="chocolate">Chocolate</string>
+    <string name="max_coffees">Você não pode pedir mais que 100 cafés</string>
+    <string name="min_coffee">Voce não pode pedir menos que 1 café</string>
+    <string name="name">Nome</string>
+    <string name="order">Pedido</string>
+    <string name="order_summary">Resumo do pedido</string>
+    <string name="quantity">Quantidade:</string>
+    <string name="quantity_xml">Quantidade</string>
+    <string name="total">Total:</string>
+    <string name="whipped_cream">Adicionar chantily?</string>
+    <string name="whipped_cream_xml">Chantily</string>
+    <string name="order_summary_name">Nome: %s</string>
+</resources>
